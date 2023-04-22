@@ -67,7 +67,7 @@ void Codigo::setCodigo(std::string codigo){
 
 bool Matricula::verificarMatricula(std::string matricula){
     int soma = 0, verificador;
-    const int tamanho = 0;
+    const int tamanho = 7;
     if(matricula.length() != tamanho){
         return false;
     }
