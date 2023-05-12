@@ -1,146 +1,191 @@
 #include "Dominios.h"
-#include <iostream>
-#include <string>
-#include <unordered_set>
 
-bool Classe::verificarClasse(std::string classe){
+void Dominios::setValor(string valor) {
+    verificaValor(valor);
+    this-> valor = valor;
+}
 
-    // Array que contem os formatos validos para o valor do objeto tipo "Classe"
+void Classe::verificaValor(string valor) {
+    string formatos[6] = {"UNIDADE", "INTEGRACAO",
+    "FUMACA", "SISTEMA", "REGRESSAO", "ACEITACAO"};
+    bool valida = false;
 
-    std::string formatos[6] = {"UNIDADE", "INTEGRACAO",
-     "FUMACA", "SISTEMA", "REGRESSAO", "ACEITACAO"};
-
-    // Loop com comparacoes entre cada um dos valores validos e o valor inserido
-    // &formato foi utilizado para evitar copias desnecessarias, ja que o valor nao sera alterado
-
-    for(const std::string &formato : formatos){
-        if(formato == classe){
-            return true;
+    for (const string &formato : formatos) {
+        if (formato == valor) {
+            valida = true;
+            break;
         }
     }
 
-    return false;
-}
-
-void Classe::setClasse(std::string classe){
-    if(verificarClasse(classe)){
-        this->classe = classe;
+    if (!valida) {
+        throw invalid_argument("Classe invalida.");
     }
 
 }
 
-
-bool Codigo::verificarCodigo(std::string codigo){
+void Codigo::verificaValor(string valor) {
     const int tamanho = 6;
-    // verifica se o valor inserido para o objeto "codigo" possui a quantidade correta de caracteres
 
-    if(codigo.length() != tamanho){
-        return false;
+    if(valor.length() != tamanho){
+        throw invalid_argument("Codigo invalido.");
     }
 
-    // separa os caracteres de tipo alpha dos digitos, para facilitar a comparacao
-
-    std::string letras = codigo.substr(0,3);
-    std::string numeros = codigo.substr(3);
+    string letras = valor.substr(0,3);
+    string numeros = valor.substr(3);
 
     for(char c : letras){
         if(!isalpha(c)){
-            return false;
+            throw invalid_argument("Codigo invalido.");
         }
     }
 
     for(char c : numeros){
         if(!isdigit(c)){
-            return false;
+            throw invalid_argument("Codigo invalido.");
         }
     }
-
-    return true;
 }
 
-void Codigo::setCodigo(std::string codigo){
-    if(verificarCodigo(codigo)){
-        this->codigo = codigo;
-    }
+bool Data::isBissexto(string valor) {
+    string subs;
+    subs = valor.substr(7);
+    int ano = stoi(subs);
 
-}
-
-bool Matricula::verificarMatricula(std::string matricula){
-    int soma = 0, verificador;
-    const int tamanho = 7;
-    if(matricula.length() != tamanho){
+    if ((ano % 4 == 0 && ano % 100 != 0) || ano % 400 == 0) {
+        return true;
+    } else {
         return false;
     }
+}
 
-    for(char c : matricula){
-        if(!isdigit(c)){
-            return false;
+void Data::verificaMes(string valor) {
+    string mes = valor.substr(3,3);
+    string mesesDoAno[12] = {"JAN", "FEV", "MAR", "ABR", "MAI",
+    "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"};
+    bool valida = false;
+
+    for (string c : mesesDoAno) {
+        if (c == mes) {
+            valida = true;
+            break;
+        }
+    }
+    if (!valida) {
+        throw invalid_argument("Data invalida.");
+    }
+}
+
+void Data::verificaValor(string valor) {
+    int ano = stoi(valor.substr(7));
+    string mes = valor.substr(3,3);
+    int dia = stoi(valor.substr(0,2));
+    string barra1 = valor.substr(2,1);
+    string barra2 = valor.substr(6,1);
+    int diasDoMes = 0;
+
+    if (mes == "FEV" && isBissexto(valor)) {
+        diasDoMes = 29;
+    } else if (mes == "FEV") {
+        diasDoMes = 28;
+    } else if (mes == "ABR" || mes == "JUN" || mes == "SET" || mes == "NOV") {
+        diasDoMes = 30;
+    } else {
+        diasDoMes = 31;
+    }
+
+    verificaMes(valor);
+
+    if (barra1 != "/" || barra2 != "/" || dia > diasDoMes || dia < 1 || ano < 2000 || ano > 2999) {
+        throw invalid_argument("Data invalida.");
+    }
+}
+
+void Matricula::verificaValor(string valor) {
+    int soma = 0;
+    int verificador = 0;
+    const int tamanho = 7;
+
+    if (valor.length() != tamanho) {
+        throw invalid_argument("Matricula invalida.");
+    }
+
+    for (char c : valor) {
+        if (!isdigit(c)) {
+            throw invalid_argument("Matricula invalida.");
         }
     }
 
-    for(int i=0; i < tamanho - 1; i++){
-        if(i % 2 == 0){
-            soma += std::stoi(matricula.substr(i, 1));
-        }else{
-            soma += 2 * (std::stoi(matricula.substr(i, 1)));
+    for (int i = 0; i < tamanho - 1; i++) {
+        if (i % 2 == 0) {
+            soma += stoi(valor.substr(i, 1));
+        } else {
+            soma += 2 * (stoi(valor.substr(i, 1)));
         }
     }
 
     verificador = soma % 10;
-    if(verificador != std::stoi(matricula.substr(6, 1))){
-        return false;
+    if (verificador != stoi(valor.substr(6, 1))) {
+        throw invalid_argument("Matricula invalida.");
     }
-
-    return true;
 }
 
-void Matricula::setMatricula(std::string matricula){
-    if(verificarMatricula(matricula)){
-        this->matricula = matricula;
+void Resultado::verificaValor(string valor) {
+    if (valor != "APROVADO" && valor != "REPROVADO") {
+        throw invalid_argument("Resultado invalido.");
     }
-
 }
 
-bool Resultado::verificarResultado(std::string resultado){
-    if(resultado != "APROVADO" && resultado != "REPROVADO"){
-        return false;
+void Senha::verificaValor(string valor) {
+    unordered_set<char> caracteres;
+    const int tamanho = 6;
+
+    if (valor.length() != tamanho) {
+        throw invalid_argument("Senha invalida.");
     }
 
-    return true;
-}
-
-void Resultado::setResultado(std::string resultado){
-    if(verificarResultado(resultado)){
-        this->resultado = resultado;
-    }
-
-}
-
-bool Senha::verificarSenha(std::string senha){
-    std::unordered_set<char> caracteres;
-
-    if(senha.length() != 6){
-        return false;
-    }
-
-    for(char c : senha){
-
-        if(!isalnum(c) && c !='@' && c != '#' &&
+    for (char c : valor) {
+        if (!isalnum(c) && c !='@' && c != '#' &&
         c != '$' && c != '%' && c != '&'){
-            return false;
+            throw invalid_argument("Senha invalida.");
         }
-        if(caracteres.find(c) != caracteres.end()){
-            return false;
+        if (caracteres.find(c) != caracteres.end()){
+            throw invalid_argument("Senha invalida.");
         }
         caracteres.insert(c);
     }
-
-    return true;
 }
 
+void Telefone::verificaValor(string valor) {
+    const int tamanhoMinimo = 7;
+    const int tamanhoMaximo = 15;
+    const string operadorOriginal = "+";
+    string operador = valor.substr(0,1);
+    string digitos = valor.substr(1);
 
-void Senha::setSenha(std::string senha){
-    if(verificarSenha(senha)){
-        this->senha = senha;
+    if (digitos.length() < tamanhoMinimo || digitos.length() > tamanhoMaximo) {
+        throw invalid_argument("Telefone invalido.");
+    }
+
+    for (char c : digitos) {
+        if (!isdigit(c)) {
+            throw invalid_argument("Telefone invalido.");
+        }
+    }
+}
+
+void Texto::verificaValor(string valor) {
+    if (valor.length() < 10 || valor.length() > 20) {
+        throw invalid_argument("Texto invalido.");
+    }
+    regex padrao("[A-Za-z0-9.,;:!?@#$%& ]+");
+    if (!regex_match(valor, padrao)) {
+        throw invalid_argument("Texto invalido.");
+    }
+    regex padrao_acentos("[¡¿¬√…» ÕÃŒ”“‘’⁄Ÿ€«·‡‚„ÈËÍÌÏÓÛÚÙı˙˘˚Á]+");
+    if (regex_search(valor, padrao_acentos)) {
+        throw invalid_argument("Texto invalido.");
+    }
+    if (valor.find("  ") != string::npos) {
+        throw invalid_argument("Texto invalido.");
     }
 }

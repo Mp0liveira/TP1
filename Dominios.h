@@ -1,111 +1,71 @@
 #ifndef DOMINIOS_H_INCLUDED
 #define DOMINIOS_H_INCLUDED
+
 #include <string>
 #include <iostream>
+#include <unordered_set>
+#include <stdexcept>
+#include <regex>
 
-class Classe{
+using namespace std;
+
+class Dominios {
     private:
-        std::string classe;
-        bool verificarClasse(std::string);
-
+        string valor;
+    protected:
+        virtual void verificaValor(string) = 0;
     public:
-        void setClasse(std::string);
-        std::string getClasse();
+        virtual ~Dominios() {}
+        void setValor(string);
+        string getValor() const;
+};
+
+inline string Dominios::getValor() const {
+    return valor;
+}
+
+class Classe : public Dominios {
+    private:
+        void verificaValor(string) override;
 
 };
 
-inline std::string Classe::getClasse(){
-    return classe;
-}
-
-class Codigo{
+class Codigo : public Dominios {
     private:
-        std::string codigo;
-        bool verificarCodigo(std::string);
+        void verificaValor(string) override;
+};
 
-    public:
-        void setCodigo(std::string);
-        std::string getCodigo();
+class Data : public Dominios {
+    private:
+        bool isBissexto(string);
+        void verificaMes(string);
+        void verificaValor(string) override;
 
 };
 
-inline std::string Codigo::getCodigo(){
-    return codigo;
-}
-
-class Matricula{
+class Matricula : public Dominios {
     private:
-        std::string matricula;
-        bool verificarMatricula(std::string);
-
-    public:
-        void setMatricula(std::string);
-        std::string getMatricula();
-
+        void verificaValor(string) override;
 };
 
-inline std::string Matricula::getMatricula(){
-    return matricula;
-}
-
-class Resultado{
+class Resultado : public Dominios {
     private:
-        std::string resultado;
-        bool verificarResultado(std::string);
-
-    public:
-        void setResultado(std::string);
-        std::string getResultado();
-
+        void verificaValor(string) override;
 };
 
-inline std::string Resultado::getResultado(){
-    return resultado;
-}
-
-class Senha{
+class Senha : public Dominios {
     private:
-        std::string senha;
-        bool verificarSenha(std::string);
-
-    public:
-        void setSenha(std::string);
-        std::string getSenha();
-
+        void verificaValor(string) override;
 };
 
-inline std::string Senha::getSenha(){
-    return senha;
-}
-
-class Telefone{
+class Telefone : public Dominios {
     private:
-        std::string telefone;
-        bool verificarTelefone(std::string);
-
-    public:
-        void setTelefone(std::string);
-        std::string getTelefone();
-
+        void verificaValor(string) override;
 };
 
-inline std::string Telefone::getTelefone(){
-    return telefone;
-}
-
-class Texto{
+class Texto : public Dominios {
     private:
-        std::string texto;
-        std::string verificarTexto(std::string);
-
-    public:
-        void setTexto(std::string);
-        std::string getTexto();
-
+        void verificaValor(string) override;
 };
-
-inline std::string Texto::getTexto(){
-    return texto;
-}
 
 #endif // DOMINIOS_H_INCLUDED
