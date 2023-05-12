@@ -3,21 +3,34 @@
 
 #include "Dominios.h"
 
-class Desenvolvedor {
-    private:
-        Matricula matricula;
-        Texto nome;
-        Senha senha;
-        Telefone telefone;
-    public:
-        void setMatricula(const Matricula&);
-        Matricula getMatricula() const;
-        void setNome(const Texto&);
-        Texto getNome() const;
-        void setSenha(const Senha&);
-        Senha getSenha() const;
-        void setTelefone(const Telefone&);
-        Telefone getTelefone() const;
+class Entidades {
+protected:
+    Texto nome;
+public:
+    void setNome(const Texto&);
+    Texto getNome() const;
+};
+
+inline void Entidades::setNome(const Texto& nome) {
+    this->nome = nome;
+}
+
+inline Texto Entidades::getNome() const {
+    return nome;
+}
+
+class Desenvolvedor : public Entidades {
+private:
+    Matricula matricula;
+    Senha senha;
+    Telefone telefone;
+public:
+    void setMatricula(const Matricula&);
+    Matricula getMatricula() const;
+    void setSenha(const Senha&);
+    Senha getSenha() const;
+    void setTelefone(const Telefone&);
+    Telefone getTelefone() const;
 };
 
 inline void Desenvolvedor::setMatricula(const Matricula& matricula) {
@@ -26,14 +39,6 @@ inline void Desenvolvedor::setMatricula(const Matricula& matricula) {
 
 inline Matricula Desenvolvedor::getMatricula() const {
     return matricula;
-}
-
-inline void Desenvolvedor::setNome(const Texto& nome) {
-    this->nome = nome;
-}
-
-inline Texto Desenvolvedor::getNome() const {
-    return nome;
 }
 
 inline void Desenvolvedor::setSenha(const Senha& senha) {
@@ -52,18 +57,15 @@ inline Telefone Desenvolvedor::getTelefone() const {
     return telefone;
 }
 
-class Teste {
-    private:
-        Codigo codigo;
-        Texto nome;
-        Classe classe;
-    public:
-        void setCodigo(const Codigo&);
-        Codigo getCodigo() const;
-        void setNome(const Texto&);
-        Texto getNome() const;
-        void setClasse(const Classe&);
-        Classe getClasse() const;
+class Teste : public Entidades {
+private:
+    Codigo codigo;
+    Classe classe;
+public:
+    void setCodigo(const Codigo&);
+    Codigo getCodigo() const;
+    void setClasse(const Classe&);
+    Classe getClasse() const;
 };
 
 inline void Teste::setCodigo(const Codigo& codigo) {
@@ -74,14 +76,6 @@ inline Codigo Teste::getCodigo() const {
     return codigo;
 }
 
-inline void Teste::setNome(const Texto& nome) {
-    this->nome = nome;
-}
-
-inline Texto Teste::getNome() const {
-    return nome;
-}
-
 inline void Teste::setClasse(const Classe& classe) {
     this->classe = classe;
 }
@@ -90,27 +84,24 @@ inline Classe Teste::getClasse() const {
     return classe;
 }
 
-class CasoDeTeste {
-    private:
-        Codigo codigo;
-        Texto nome;
-        Data data;
-        Texto acao;
-        Texto resposta;
-        Resultado resultado;
-    public:
-        void setCodigo(const Codigo&);
-        Codigo getCodigo() const;
-        void setNome(const Texto&);
-        Texto getNome() const;
-        void setData(const Data&);
-        Data getData() const;
-        void setAcao(const Texto&);
-        Texto getAcao() const;
-        void setResposta(const Texto&);
-        Texto getResposta()const;
-        void setResultado(const Resultado&);
-        Resultado getResultado() const;
+class CasoDeTeste : public Entidades {
+private:
+    Codigo codigo;
+    Data data;
+    Texto acao;
+    Texto resposta;
+    Resultado resultado;
+public:
+    void setCodigo(const Codigo&);
+    Codigo getCodigo() const;
+    void setData(const Data&);
+    Data getData() const;
+    void setAcao(const Texto&);
+    Texto getAcao() const;
+    void setResposta(const Texto&);
+    Texto getResposta() const;
+    void setResultado(const Resultado&);
+    Resultado getResultado() const;
 };
 
 inline void CasoDeTeste::setCodigo(const Codigo& codigo) {
@@ -119,14 +110,6 @@ inline void CasoDeTeste::setCodigo(const Codigo& codigo) {
 
 inline Codigo CasoDeTeste::getCodigo() const {
     return codigo;
-}
-
-inline void CasoDeTeste::setNome(const Texto& nome) {
-    this->nome = nome;
-}
-
-inline Texto CasoDeTeste::getNome() const {
-    return nome;
 }
 
 inline void CasoDeTeste::setData(const Data& data) {
