@@ -72,7 +72,7 @@ class Classe : public Dominios {
     private:
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do valor do objeto tipo Classe.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor do objeto n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido s&atilde;o: "UNIDADE", "INTEGRACAO", "FUMACA", "SISTEMA", "REGRESSAO" e "ACEITACAO".
@@ -88,7 +88,7 @@ class Codigo : public Dominios {
     private:
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do valor do objeto tipo Codigo.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor do objeto n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido devem ser da forma LLLDDD, onde os seus tr&ecirc;s L s&atilde;o letras
@@ -105,13 +105,13 @@ class Data : public Dominios {
         /**
         * @brief M&eacute;todo respons&aacute;vel por verificar se a data &eacute; referente a;
         * um ano bissexto.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         */
         bool isBissexto(string);
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do m&ecirc;s inserido
         * na data.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor refente ao m&ecirc;s n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido s&atilde;o: "JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL",
@@ -120,7 +120,7 @@ class Data : public Dominios {
         void verificaMes(string);
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do valor do objeto tipo Data.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor do objeto n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido devem ser da forma DD/MES/ANO, onde DD s&atilde;o os dias (1 - 31),
@@ -138,7 +138,7 @@ class Matricula : public Dominios {
     private:
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do valor do objeto tipo Matricula.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor do objeto n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido devem ser da forma DDDDDDX, onde todos os seus caracteres D s&atilde;o
@@ -155,7 +155,7 @@ class Resultado : public Dominios {
     private:
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do valor do objeto tipo Resultado.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor do objeto n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido s&atilde;o: "APROVADO" e "REPROVADO".
@@ -170,7 +170,7 @@ class Senha : public Dominios {
     private:
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do valor do objeto tipo Senha.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor do objeto n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido s&atilde;o devem ser da forma XXXXXX, onde X pode ser uma letra (A - Z, a - z),
@@ -187,7 +187,7 @@ class Telefone : public Dominios {
     private:
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do valor do objeto tipo Telefone.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor do objeto n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido s&atilde;o devem ser da forma +XXXXXXX (7 d&iacute;gitos) a +XXXXXXXXXXXXXXX
@@ -204,7 +204,7 @@ class Texto : public Dominios {
     private:
         /**
         * @brief M&eacute;todo respons&aacute;vel pela valida&ccedil;&atilde;o do valor do objeto tipo Telefone.
-        * @param valor.
+        * @param valor O valor a ser verificado.
         * @throw invalid_argument Se o valor do objeto n&atilde;o for do formato v&aacute;lido.
         *
         * Os formatos v&aacute;lido s&atilde;o devem ter de 10 a 20 caracteres, onde cada caracter X pode ser
